@@ -46,8 +46,9 @@ const listAllVisitors = () => {
     console.log(results.rows);
   });
 };
-const deleteVisitor = () => {
-  pool.query(`DELETE FROM visitors WHERE id = 5;`, (error, results) => {
+
+const deleteVisitor = (id) => {
+  pool.query(`DELETE FROM visitors WHERE id = $1;`, [id], (error, results) => {
     if (error) {
       throw error;
     }
@@ -55,11 +56,14 @@ const deleteVisitor = () => {
     console.log(results.rows);
   });
 };
-const updateVisitor = () => {
+
+const updateVisitor = (id, assistantsname) => {
   pool.query(
     `UPDATE visitors
-     SET assistantsname = 'Micheal'
-     WHERE id = 4;`,
+     SET assistantsname = $2
+     WHERE id = $1
+     RETURNING *;`,
+    [id, assistantsname],
     (error, results) => {
       if (error) {
         throw error;
@@ -69,10 +73,12 @@ const updateVisitor = () => {
     }
   );
 };
-const viewVisitorInfo = () => {
+
+const viewVisitorInfo = (id) => {
   pool.query(
     `SELECT * FROM visitors
-     WHERE id = 6;`,
+     WHERE id = $1;`,
+    [id],
     (error, results) => {
       if (error) {
         throw error;

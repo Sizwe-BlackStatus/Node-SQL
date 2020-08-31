@@ -7,6 +7,7 @@ const {
   updateVisitor,
   pool,
 } = require("../src/node_sql");
+
 describe("addVisitor function", () => {
   it("should call query method", () => {
     spyOn(pool, "query");
@@ -19,6 +20,7 @@ describe("addVisitor function", () => {
     ).not.toBeNull;
   });
 });
+
 describe("listAllVisitors function", () => {
   it("should call query method", () => {
     spyOn(pool, "query");
@@ -29,6 +31,7 @@ describe("listAllVisitors function", () => {
     expect(listAllVisitors).not.toBeNull;
   });
 });
+
 describe("deleteVisitor function", () => {
   it("should call query method", () => {
     spyOn(pool, "query");
@@ -36,7 +39,6 @@ describe("deleteVisitor function", () => {
     expect(pool.query).toHaveBeenCalled();
   });
   it("should delete a visitor from database", () => {
-    // dummycode
     var lengthOfResults = 2;
     if (deleteVisitor) {
       lengthOfResults = 1;
@@ -45,6 +47,7 @@ describe("deleteVisitor function", () => {
     expect(lengthOfResults).toBeLessThan(2);
   });
 });
+
 describe("deleteAllVisitors function", () => {
   it("should call query method", () => {
     spyOn(pool, "query");
@@ -55,6 +58,7 @@ describe("deleteAllVisitors function", () => {
     expect(deleteAllVisitor).toBeNull;
   });
 });
+
 describe("viewVisitorInfo function", () => {
   it("should call query method", () => {
     spyOn(pool, "query");
@@ -65,6 +69,7 @@ describe("viewVisitorInfo function", () => {
     expect(viewVisitorInfo()).not.toBeNull;
   });
 });
+
 describe("updateVisitor function", () => {
   it("should call query method", () => {
     spyOn(pool, "query");
