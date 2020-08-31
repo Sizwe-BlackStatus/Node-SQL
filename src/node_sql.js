@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const Pool = require("pg").Pool;
 const pool = new Pool({
   user: process.env.user,
@@ -8,12 +8,25 @@ const pool = new Pool({
   port: process.env.port,
 });
 
-var addNewVisitor = (visitorname, visitorage, dateofvisit, timeofvisit, assistantsname, comments) => {
+const addNewVisitor = (
+  visitorname,
+  visitorage,
+  dateofvisit,
+  timeofvisit,
+  assistantsname,
+  comments
+) => {
   pool.query(
     `INSERT INTO VISITORS (visitorname, visitorage, dateofvisit, timeofvisit, assistantsname, comments) 
-    VALUES ($1,$2,$3,$4,$5,$6)
-    RETURNING *;`,
-    [visitorname, visitorage, dateofvisit, timeofvisit, assistantsname, comments],
+    VALUES ($1,$2,$3,$4,$5,$6);`,
+    [
+      visitorname,
+      visitorage,
+      dateofvisit,
+      timeofvisit,
+      assistantsname,
+      comments,
+    ],
     (error, results) => {
       if (error) {
         throw error;
@@ -23,6 +36,7 @@ var addNewVisitor = (visitorname, visitorage, dateofvisit, timeofvisit, assistan
     }
   );
 };
+
 const listAllVisitors = () => {
   pool.query(`SELECT id,visitorname FROM visitors;`, (error, results) => {
     if (error) {
@@ -32,7 +46,6 @@ const listAllVisitors = () => {
     console.log(results.rows);
   });
 };
-
 const deleteVisitor = () => {
   pool.query(`DELETE FROM visitors WHERE id = 5;`, (error, results) => {
     if (error) {
@@ -46,8 +59,7 @@ const updateVisitor = () => {
   pool.query(
     `UPDATE visitors
      SET assistantsname = 'Micheal'
-     WHERE id = 4
-     RETURNING *;`,
+     WHERE id = 4;`,
     (error, results) => {
       if (error) {
         throw error;
@@ -60,7 +72,7 @@ const updateVisitor = () => {
 const viewVisitorInfo = () => {
   pool.query(
     `SELECT * FROM visitors
-     WHERE id = 1;`,
+     WHERE id = 6;`,
     (error, results) => {
       if (error) {
         throw error;
@@ -70,6 +82,7 @@ const viewVisitorInfo = () => {
     }
   );
 };
+
 const deleteAllVisitor = () => {
   pool.query(`DELETE FROM visitors;`, (error, results) => {
     if (error) {
