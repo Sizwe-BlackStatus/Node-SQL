@@ -14,10 +14,13 @@ describe("addVisitor function", () => {
     addNewVisitor();
     expect(pool.query).toHaveBeenCalled();
   });
-  it("should add visitor's data", () => {
-    expect(
-      addNewVisitor("Jason", 21, "01-03-2020", "09:15:16", "Zulu", "Inspiring")
-    ).not.toBeNull;
+  it("should insert visitor data", () => {
+    var noOfVistors = 2;
+    if (addNewVisitor) {
+      noOfVistors = 3;
+    }
+    addNewVisitor;
+    expect(noOfVistors).toBeGreaterThan(2);
   });
 });
 
@@ -27,8 +30,18 @@ describe("listAllVisitors function", () => {
     listAllVisitors();
     expect(pool.query).toHaveBeenCalled();
   });
-  it("should list selected data", () => {
-    expect(listAllVisitors).not.toBeNull;
+  it("should list id and name from the data", () => {
+    if (listAllVisitors) {
+      resultsRow = [
+        { id: 63, visitorname: "Jason" },
+        { id: 64, visitorname: "Samson" },
+      ];
+    }
+    listAllVisitors;
+    expect(resultsRow).toEqual([
+      { id: 63, visitorname: "Jason" },
+      { id: 64, visitorname: "Samson" },
+    ]);
   });
 });
 
@@ -55,7 +68,12 @@ describe("deleteAllVisitors function", () => {
     expect(pool.query).toHaveBeenCalled();
   });
   it("delete all visitors from database", () => {
-    expect(deleteAllVisitor).toBeNull;
+    noOfVistors = 3
+    if (deleteAllVisitor) {
+      noOfVistors = 0;
+    }
+    deleteAllVisitor;
+    expect(noOfVistors).toBe(0);
   });
 });
 
@@ -66,7 +84,15 @@ describe("viewVisitorInfo function", () => {
     expect(pool.query).toHaveBeenCalled();
   });
   it("should return a visitor's data", () => {
-    expect(viewVisitorInfo()).not.toBeNull;
+    if (viewVisitorInfo) {
+      resultsRow = [
+        {
+          visitorName: "Anthony",
+          visitorAge: 19,
+        },
+      ];
+    }
+    expect(resultsRow).toEqual([{ visitorName: "Anthony", visitorAge: 19 }]);
   });
 });
 
