@@ -14,13 +14,27 @@ describe("addVisitor function", () => {
     addNewVisitor();
     expect(pool.query).toHaveBeenCalled();
   });
-  it("should insert visitor data", () => {
-    var noOfVistors = 2;
-    if (addNewVisitor) {
-      noOfVistors = 3;
-    }
-    addNewVisitor;
-    expect(noOfVistors).toBeGreaterThan(2);
+  it("should be called with correct arguments", () => {
+    objVisitor = {
+      addNewVisitor: addNewVisitor,
+    };
+    spyOn(objVisitor, "addNewVisitor");
+    objVisitor.addNewVisitor(
+      "Jack",
+      21,
+      "2020-03-24",
+      "14:00:01",
+      "Jimmy",
+      "Cool!"
+    );
+    expect(objVisitor.addNewVisitor).toHaveBeenCalledWith(
+      "Jack",
+      21,
+      "2020-03-24",
+      "14:00:01",
+      "Jimmy",
+      "Cool!"
+    );
   });
 });
 
@@ -32,12 +46,11 @@ describe("listAllVisitors function", () => {
   });
   it("should list id and name from the data", () => {
     if (listAllVisitors) {
-      resultsRow = [
+      var resultsRow = [
         { id: 63, visitorname: "Jason" },
         { id: 64, visitorname: "Samson" },
       ];
     }
-    listAllVisitors;
     expect(resultsRow).toEqual([
       { id: 63, visitorname: "Jason" },
       { id: 64, visitorname: "Samson" },
@@ -51,13 +64,13 @@ describe("deleteVisitor function", () => {
     deleteVisitor();
     expect(pool.query).toHaveBeenCalled();
   });
-  it("should delete a visitor from database", () => {
-    var lengthOfResults = 2;
-    if (deleteVisitor) {
-      lengthOfResults = 1;
-    }
-    deleteVisitor;
-    expect(lengthOfResults).toBeLessThan(2);
+  it("should be called with correct arguments", () => {
+    objVisitor = {
+      deleteVisitor: deleteVisitor,
+    };
+    spyOn(objVisitor, "deleteVisitor");
+    objVisitor.deleteVisitor(103);
+    expect(objVisitor.deleteVisitor).toHaveBeenCalledWith(103);
   });
 });
 
@@ -68,11 +81,10 @@ describe("deleteAllVisitors function", () => {
     expect(pool.query).toHaveBeenCalled();
   });
   it("delete all visitors from database", () => {
-    noOfVistors = 3
+    noOfVistors = 3;
     if (deleteAllVisitor) {
       noOfVistors = 0;
     }
-    deleteAllVisitor;
     expect(noOfVistors).toBe(0);
   });
 });
@@ -83,16 +95,13 @@ describe("viewVisitorInfo function", () => {
     viewVisitorInfo();
     expect(pool.query).toHaveBeenCalled();
   });
-  it("should return a visitor's data", () => {
-    if (viewVisitorInfo) {
-      resultsRow = [
-        {
-          visitorName: "Anthony",
-          visitorAge: 19,
-        },
-      ];
-    }
-    expect(resultsRow).toEqual([{ visitorName: "Anthony", visitorAge: 19 }]);
+  it("should be called with correct arguments", () => {
+    objVisitor = {
+      viewVisitorInfo: viewVisitorInfo,
+    };
+    spyOn(objVisitor, "viewVisitorInfo");
+    objVisitor.viewVisitorInfo(110);
+    expect(objVisitor.viewVisitorInfo).toHaveBeenCalledWith(110);
   });
 });
 
@@ -102,12 +111,12 @@ describe("updateVisitor function", () => {
     updateVisitor();
     expect(pool.query).toHaveBeenCalled();
   });
-  it("should update visitors data", () => {
-    var assistantsName = "Micheal";
-    if (updateVisitor) {
-      assistantsName = "Zulu";
-    }
-    updateVisitor();
-    expect(assistantsName).toBe("Zulu");
+  it("should be called with correct arguments", () => {
+    objVisitor = {
+      updateVisitor: updateVisitor,
+    };
+    spyOn(objVisitor, "updateVisitor");
+    objVisitor.updateVisitor(110, "Jack");
+    expect(objVisitor.updateVisitor).toHaveBeenCalledWith(110, "Jack");
   });
 });
